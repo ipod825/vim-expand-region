@@ -305,6 +305,8 @@ endfunction
 " Expand or shrink the visual selection to the next candidate in the text object
 " list.
 function! s:expand_region(mode, direction)
+  silent! doautocmd USER ExpandRegionStart
+
   " Save the selectmode setting, and remove the setting so our 'v' command do
   " not get interfered
   let s:saved_selectmode = &selectmode
@@ -344,6 +346,8 @@ function! s:expand_region(mode, direction)
 
   " Restore the selectmode setting
   let &selectmode = s:saved_selectmode
+
+  silent! doautocmd USER ExpandRegionStop
 endfunction
 
 let &cpo = s:save_cpo
